@@ -1,4 +1,8 @@
 import { Schema, model } from "mongoose";
+interface UrlInterface {
+	url: string;
+	shortUrl: string;
+}
 const UrlSchema = new Schema({
 	url: {
 		type: String,
@@ -9,4 +13,5 @@ const UrlSchema = new Schema({
 		required: true,
 	},
 });
-module.exports = model("UrlSchema", UrlSchema);
+const urlSchema = model("UrlSchema", UrlSchema);
+module.exports = urlSchema;
