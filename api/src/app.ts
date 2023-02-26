@@ -1,8 +1,7 @@
-import express, { Request, Response, Application } from "express";
-// import cors from "cors";
-import { DevConfig } from "./env/developemnt";
+import express, { Application } from "express";
+import cors from "cors";
+import { DevConfig } from "./env/development";
 import { DbConnection } from "./database/dbConnection";
-import userRoute from "./routes/userRoutes";
 export class App {
 	public app: Application;
 	public port: number;
@@ -13,14 +12,11 @@ export class App {
 		this.port = this.config.PORT;
 		this.initializeMiddleware();
 		this.initializeDatabase();
-		this.intializeUserRoute();
 	}
 
-	public intializeUserRoute() {
-		return this.app.use("/api", userRoute);
-	}
 	public initializeMiddleware() {
 		this.app.use(express.json());
+		this.app.use(cors());
 	}
 	public initializeDatabase() {
 		return new DbConnection().mongooseConnection();
