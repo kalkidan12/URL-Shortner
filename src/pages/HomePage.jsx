@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 const HomePage = () => {
+	const [copied, setCopied] = useState(false);
 	return (
 		<div className="mx-auto h-screen bg-slate-50">
 			<nav class="relative flex w-full flex-wrap items-center justify-between bg-blue-900 py-3  shadow-lg">
@@ -44,12 +46,14 @@ const HomePage = () => {
 							<span className="flex-1 appearance-none rounded shadow p-3 text-grey-dark mr-2 focus:outline-none">
 								shotened link here
 							</span>
-							<button
-								type="submit"
-								className="bg-yellow-600 text-white text-base font-semibold rounded-md shadow-md hover:bg-yellow-500 p-3"
+							<CopyToClipboard
+								text="shotened link here"
+								onCopy={() => setCopied(true)}
 							>
-								copy
-							</button>
+								<button className="bg-yellow-600 text-white text-base font-semibold rounded-md shadow-md hover:bg-yellow-500 p-3">
+									{copied ? "copied" : "copy"}
+								</button>
+							</CopyToClipboard>
 						</div>
 					</div>
 					<p className="mx-auto text-md text-dark-900 dark:text-dark my-4">
