@@ -1,5 +1,10 @@
 import React from "react";
+import HomePage from "./pages/HomePage";
 
 export default function App() {
-	return <div className="text-3xl font-bold underline">Hello world!</div>;
+	return (
+		<>
+			<HomePage />
+		</>
+	);
 }
