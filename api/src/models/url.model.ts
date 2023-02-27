@@ -13,5 +13,4 @@ const UrlSchema = new Schema({
 		required: true,
 	},
 });
-const urlSchema = model("UrlSchema", UrlSchema);
-module.exports = urlSchema;
+module.exports = model("Url", UrlSchema);
