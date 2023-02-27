@@ -9,6 +9,10 @@ export class UrlShortnerService {
 		const existUrl = await urlSchema.findOne({ url });
 		return existUrl;
 	}
+	public async getShortedUrl(shortUrl: string) {
+		const existUrl = await urlSchema.findOne({ shortUrl });
+		return existUrl;
+	}
 	public async createShortUrl(url: string, shortUrl: string) {
 		const newShortUrl = await new urlSchema({ url, shortUrl });
 		return await newShortUrl.save();

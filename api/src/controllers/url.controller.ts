@@ -29,4 +29,23 @@ export class UrlController {
 			console.log(error);
 		}
 	}
+	public async redirectToUrl(req: Request, res: Response, next: NextFunction) {
+		const shortUrl = req.params.shortUrl;
+		try {
+			if (shortUrl == null)
+				return res
+					.status(404)
+					.json({ message: "please provide a valid short url" });
+
+			const existUrl = await urlServices.getShortedUrl(shortUrl);
+			if (!existUrl)
+				return res.status(404).json({
+					message: "this short url not found!",
+				});
+
+			res.redirect(existUrl.url);
+		} catch (error) {
+			console.log(error);
+		}
+	}
 }
