@@ -17,6 +17,7 @@ export class UrlController {
 			if (existUrl)
 				return res.status(200).json({
 					message: "url already exist!",
+					url: existUrl.url,
 					shortUrl: `${req.headers.host}/${existUrl.shortUrl}`,
 					shortid: existUrl.shortUrl,
 				});
@@ -26,6 +27,7 @@ export class UrlController {
 			);
 			return res.status(201).json({
 				message: "url shortened successfully",
+				url: newUrl.url,
 				shortedUrl: `${req.headers.host}/${result.shortUrl}`,
 				shortid: result.shortid,
 			});

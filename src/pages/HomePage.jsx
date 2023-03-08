@@ -5,17 +5,19 @@ import Header from "../components/Header";
 import { useSelector, useDispatch } from "react-redux";
 import { addShortUrl, getShortUrl } from "../features/url/actions";
 import axios from "axios";
+import { Link } from "react-router-dom";
 const HomePage = () => {
 	const [showCopy, setShowCopy] = useState(false);
 	const [copied, setCopied] = useState(false);
 	const [url, setUrl] = useState("");
 	const [shortUrl, setShortUrl] = useState("");
 	const [shortId, setShortId] = useState("");
+	const [fullUrl, setFullUrl] = useState("");
 
 	const rediretToUrl = async (e) => {
 		e.preventDefault();
 		try {
-			await axios.get(`http://localhost:5000/api/url/${shortId}`, {});
+			window.location.replace(fullUrl);
 		} catch (error) {}
 	};
 	const createShortUrl = async (e) => {
@@ -31,6 +33,7 @@ const HomePage = () => {
 				setShowCopy(true);
 				setShortId(response.data.shortid);
 				setShortUrl(response.data.shortUrl);
+				setFullUrl(response.data.url);
 			} else {
 				setShowCopy(false);
 				setShortUrl("please provide valid url!");
@@ -78,7 +81,9 @@ const HomePage = () => {
 									onClick={(e) => rediretToUrl(e)}
 									className="cursor-pointer flex-1 appearance-none rounded shadow p-3 text-grey-dark mr-2 focus:outline-none"
 								>
-									{shortUrl}
+									<a rel="noreferrer" href={fullUrl} target="_blank">
+										{shortUrl}
+									</a>
 								</span>
 								{showCopy && (
 									<CopyToClipboard
