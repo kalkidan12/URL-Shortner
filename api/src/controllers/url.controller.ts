@@ -7,7 +7,9 @@ export class UrlController {
 		const newUrl = req.body;
 		try {
 			if (newUrl.url == null)
-				return res.status(404).json({ message: "please provide a valid url" });
+				return res
+					.status(404)
+					.json({ message: "please provide a valid url it is empyu" });
 			const isValidUrl = urlServices.checkValidUrl(newUrl.url);
 			if (!isValidUrl)
 				return res.status(400).json({ message: "It is not valid url" });
@@ -15,7 +17,8 @@ export class UrlController {
 			if (existUrl)
 				return res.status(200).json({
 					message: "url already exist!",
-					shortedUrl: `${req.headers.host}/${existUrl.shortUrl}`,
+					shortUrl: `${req.headers.host}/${existUrl.shortUrl}`,
+					shortid: existUrl.shortUrl,
 				});
 			const result = await urlServices.createShortUrl(
 				newUrl.url,
@@ -24,6 +27,7 @@ export class UrlController {
 			return res.status(201).json({
 				message: "url shortened successfully",
 				shortedUrl: `${req.headers.host}/${result.shortUrl}`,
+				shortid: result.shortid,
 			});
 		} catch (error) {
 			console.log(error);
@@ -43,7 +47,8 @@ export class UrlController {
 					message: "this short url not found!",
 				});
 
-			res.redirect(existUrl.url);
+			res.status(301).redirect(existUrl.url);
+			next();
 		} catch (error) {
 			console.log(error);
 		}
